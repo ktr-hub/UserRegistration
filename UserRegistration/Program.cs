@@ -27,7 +27,7 @@ namespace UserRegistration
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to user registration form...");
-     
+   
             string pattern = @"^[A-Z][A-Za-z]{2,}$";
             String firstName = validateFunction(pattern,"First Name");
             String lastName = validateFunction(pattern,"Last Name");
@@ -39,6 +39,10 @@ namespace UserRegistration
  
             pattern = @"^[0-9]{1,2}\s[6-9][0-9]{9}$";
             string phoneNo = validateFunction(pattern, "Mobile Number");
+     
+
+            pattern = @"^.{8,}";
+            string password = validateFunction(pattern, "Password");
 
         }
     }
