@@ -24,10 +24,30 @@ namespace UserRegistration
                 }
             }
         }
+
+        public static string validatePassword(string pattern, string name)
+        {
+            Regex regex = new Regex(pattern);
+            while (true)
+            {
+                Console.Write("Enter " + name + " : ");
+                string userName = Console.ReadLine();
+
+                if (!regex.IsMatch(userName))
+                {
+                    Console.WriteLine("\n\n********\n\n" + name + " is valid..." + "\n\n********\n\n");
+                    return userName;
+                }
+                else
+                {
+                    Console.WriteLine("\n\n********\n\n Invalid " + name + "\n\n********\n\n");
+                }
+            }
+        }
+
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to user registration form...");
-   
             string pattern = @"^[A-Z][A-Za-z]{2,}$";
             String firstName = validateFunction(pattern,"First Name");
             String lastName = validateFunction(pattern,"Last Name");
@@ -40,9 +60,8 @@ namespace UserRegistration
             pattern = @"^[0-9]{1,2}\s[6-9][0-9]{9}$";
             string phoneNo = validateFunction(pattern, "Mobile Number");
      
-
-            pattern = @"^.{8,}";
-            string password = validateFunction(pattern, "Password");
+            pattern = "^(([A-Z]+)|([0-9]+)|([a-z]+)|([A-Za-z0-9]+)|(.{0,7}))$";
+            string password = validatePassword(pattern, "Password");
 
         }
     }
