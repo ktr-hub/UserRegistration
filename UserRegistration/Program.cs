@@ -5,8 +5,9 @@ namespace UserRegistration
 {
     class Program
     {
-        public static string validateFunction(Regex regex,string name)
+        public static string validateFunction(string pattern,string name)
         {
+            Regex regex = new Regex(pattern);
             while (true)
             {
                 Console.Write("Enter "+name+" : ");
@@ -19,7 +20,7 @@ namespace UserRegistration
                 }
                 else
                 {
-                    Console.WriteLine("\n\n********\n\n Invalid " + name+ " ... Please enter atleast three characters starting with a Capital letter (Eg.: Sam,Jack)"+ "\n\n********\n\n");
+                    Console.WriteLine("\n\n********\n\n Invalid " + name+ "\n\n********\n\n");
                 }
             }
         }
@@ -28,12 +29,15 @@ namespace UserRegistration
             Console.WriteLine("Welcome to user registration form...");
 
             string pattern = @"^[A-Z][A-Za-z]{2,}$";
-            Regex regex = new Regex(pattern);
-
-            String firstName = validateFunction(regex,"First Name");
-            String lastName = validateFunction(regex,"Last Name");
+            
+            String firstName = validateFunction(pattern,"First Name");
+            String lastName = validateFunction(pattern,"Last Name");
 
             Console.WriteLine("\n\n********\n\nYour full name is : " + firstName + " " + lastName+ "\n\n********\n\n");
+
+            pattern = @"^[a-z][a-z0-9]*([.-_+][a-z0-9]+)?@([a-z0-9]+[.]){1,2}[a-z]{2,}$";
+           
+            string email = validateFunction(pattern, "Email");
 
         }
     }
