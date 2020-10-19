@@ -25,23 +25,24 @@ namespace UserRegistration
             while (true)
             {
                 Console.Write("Enter " + name + " : ");
-                string userName = Console.ReadLine();
+                string userInput = Console.ReadLine();
 
-                if (regex.IsMatch(userName) && !name.Equals("Password"))
-                {
-                    Console.WriteLine("\n\n********\n\n" + name + " is valid..." + "\n\n********\n\n");
-                    return userName;
-                }
-                else
+                Func<string> isValid = () =>
                 {
                     try
                     {
-                        throw new InvalidUserCustomException("\n\n********\n\n" + name + " is invalid..." + "\n\n********\n\n");
+                        return (regex.IsMatch(userInput) ? userInput : throw new InvalidUserCustomException("Invalid " + name));
                     }
                     catch(InvalidUserCustomException exception)
                     {
                         Console.WriteLine(exception.Message);
+                        return null;
                     }
+                };
+
+                if (isValid()!=null)
+                {
+                    return userInput;
                 }
             }
         }
