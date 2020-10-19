@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace UserRegistration
 {
-    public class Program
+    public class Program : Exception
     {
         static void Main(string[] args)
         {
@@ -34,8 +34,14 @@ namespace UserRegistration
                 }
                 else
                 {
-                    Console.WriteLine("\n\n********\n\n Invalid " + name + "\n\n********\n\n");
-
+                    try
+                    {
+                        throw new InvalidUserCustomException("\n\n********\n\n" + name + " is invalid..." + "\n\n********\n\n");
+                    }
+                    catch(InvalidUserCustomException exception)
+                    {
+                        Console.WriteLine(exception.Message);
+                    }
                 }
             }
         }
@@ -55,7 +61,14 @@ namespace UserRegistration
                 }
                 else
                 {
-                    Console.WriteLine("\n\n********\n\n Invalid " + name + "\n\n********\n\n");
+                    try
+                    {
+                        throw new InvalidUserCustomException("\n\n********\n\n" + name + " is invalid..." + "\n\n********\n\n");
+                    }
+                    catch (InvalidUserCustomException exception)
+                    {
+                        Console.WriteLine(exception.Message);
+                    }
                 }
             }
         }
@@ -71,7 +84,14 @@ namespace UserRegistration
             }
             else
             {
-                return null;
+                try
+                {
+                    throw new InvalidUserCustomException(" Email is invalid...");
+                }
+                catch (InvalidUserCustomException exception)
+                {
+                    return(exception.Message);
+                }
             }
         }
 
