@@ -3,24 +3,39 @@ using System.Text.RegularExpressions;
 
 namespace UserRegistration
 {
-    class Program
+    public class Program
     {
-        public static string validateFunction(string pattern,string name)
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Welcome to user registration form...");
+            string pattern = @"^[A-Z][A-Za-z]{2,}$";
+            String firstName = validateFunction(pattern, "First Name");
+            String lastName = validateFunction(pattern, "Last Name");
+            Console.WriteLine("\n\n********\n\nYour full name is : " + firstName + " " + lastName + "\n\n********\n\n");
+
+            pattern = @"^[0-9]{1,2}\s[1-9][0-9]{9}$";
+            string phoneNo = validateFunction(pattern, "Mobile Number");
+
+            pattern = "^(([A-Z]+)|([0-9]+)|([a-z]+)|([A-Za-z0-9]+)|(.{0,7}))$";
+            string password = validatePassword(pattern, "Password");
+        }
+        public static string validateFunction(string pattern, string name)
         {
             Regex regex = new Regex(pattern);
             while (true)
             {
-                Console.Write("Enter "+name+" : ");
+                Console.Write("Enter " + name + " : ");
                 string userName = Console.ReadLine();
 
-                if (regex.IsMatch(userName))
+                if (regex.IsMatch(userName) && !name.Equals("Password"))
                 {
-                    Console.WriteLine("\n\n********\n\n" + name+" is valid..." + "\n\n********\n\n");
+                    Console.WriteLine("\n\n********\n\n" + name + " is valid..." + "\n\n********\n\n");
                     return userName;
                 }
                 else
                 {
-                    Console.WriteLine("\n\n********\n\n Invalid " + name+ "\n\n********\n\n");
+                    Console.WriteLine("\n\n********\n\n Invalid " + name + "\n\n********\n\n");
+
                 }
             }
         }
@@ -45,24 +60,20 @@ namespace UserRegistration
             }
         }
 
-        static void Main(string[] args)
+        public string validateEmail(string test)
         {
-            Console.WriteLine("Welcome to user registration form...");
-            string pattern = @"^[A-Z][A-Za-z]{2,}$";
-            String firstName = validateFunction(pattern,"First Name");
-            String lastName = validateFunction(pattern,"Last Name");
+            string pattern = @"^[a-z][a-z0-9]*([.-_+][a-z0-9]+)?@([a-z0-9]+[.]){1,2}[a-z]{2,}$";
+            Regex regex = new Regex(pattern);
 
-            Console.WriteLine("\n\n********\n\nYour full name is : " + firstName + " " + lastName+ "\n\n********\n\n");
-
-            pattern = @"^[a-z][a-z0-9]*([.-_+][a-z0-9]+)?@([a-z0-9]+[.]){1,2}[a-z]{2,}$";
-            string email = validateFunction(pattern, "Email");
- 
-            pattern = @"^[0-9]{1,2}\s[6-9][0-9]{9}$";
-            string phoneNo = validateFunction(pattern, "Mobile Number");
-     
-            pattern = "^(([A-Z]+)|([0-9]+)|([a-z]+)|([A-Za-z0-9]+)|(.{0,7}))$";
-            string password = validatePassword(pattern, "Password");
-
+            if (regex.IsMatch(test))
+            {
+                return "valid";
+            }
+            else
+            {
+                return null;
+            }
         }
+
     }
 }
